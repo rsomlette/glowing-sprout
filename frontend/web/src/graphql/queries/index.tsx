@@ -8,3 +8,13 @@ export const GET_ALL_RECIPES = gql`
     }
   }
 `;
+
+export const GET_VIEWER = gql`
+  query {
+    viewer {
+      username
+      email
+      joinDate
+    }
+  }
+`;
