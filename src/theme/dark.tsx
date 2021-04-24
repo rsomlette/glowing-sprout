@@ -1,5 +1,6 @@
 import { commonTheme } from "./commonTheme";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   colors: {
     border: "#15232C",

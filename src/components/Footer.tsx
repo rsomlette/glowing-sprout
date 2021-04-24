@@ -7,6 +7,7 @@ const StyledFooter = styled.footer`
   margin-bottom: 8px;
 `;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (props: any) => (
   <StyledFooter {...props}>
     Copyright 2020 Yummit. All rights reserved | Privacy Policy | Term of Use
