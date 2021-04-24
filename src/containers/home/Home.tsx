@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Link } from "../../components";
+import { Box } from "../../components";
 
 export const Home = () => (
   <Box
@@ -9,8 +9,6 @@ export const Home = () => (
     alignItems="center"
   >
     <h3>Home</h3>
-    <div>
-      <Link to="/login">Login</Link> | <Link to="/signup">Signup</Link>
-    </div>
+    <div>the page content</div>
   </Box>
 );

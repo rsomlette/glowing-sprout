@@ -15,6 +15,7 @@ import App from "./app/App";
 
 import * as serviceWorker from "./serviceWorker";
 import { userSession } from "./helpers/auth";
+// import { IS_USER_LOGGED_IN } from "./graphql/queries";
 
 const httpLink = createHttpLink({
   uri: `http://localhost:4000/`,
@@ -25,9 +26,10 @@ const onErrorLink = onError(({ networkError }) => {
   console.log("networkError", networkError);
 });
 
-const authLink = setContext(async (_, { headers }) => {
+const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = await userSession.getUser();
+  const token = userSession.getUser();
+  console.log("AUTH LINK CALLED", token);
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -37,9 +39,10 @@ const authLink = setContext(async (_, { headers }) => {
   };
 });
 
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
+const cache = new InMemoryCache();
 
+const client = new ApolloClient({
+  cache,
   link: from([onErrorLink, authLink, httpLink]),
 });
 

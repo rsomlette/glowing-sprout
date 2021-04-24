@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Moon, Sun } from "react-feather";
+import { Moon, Sun, LogOut } from "react-feather";
+import { Box } from ".";
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -41,14 +42,20 @@ const Title = styled.h3`
 interface iHeader {
   theme: string;
   toggleTheme: () => void;
+  onLogout: () => void;
 }
 
-const Header: FC<iHeader> = ({ theme, toggleTheme }) => (
+const Header: FC<iHeader> = ({ theme, toggleTheme, onLogout }) => (
   <HeaderWrapper>
     <Title>Yummit</Title>
-    <Button onClick={toggleTheme}>
-      {theme === "light" ? <Moon /> : <Sun />}
-    </Button>
+    <Box ml="auto">
+      <Button onClick={toggleTheme}>
+        {theme === "light" ? <Moon /> : <Sun />}
+      </Button>
+      <Button onClick={onLogout}>
+        <LogOut />
+      </Button>
+    </Box>
   </HeaderWrapper>
 );
 

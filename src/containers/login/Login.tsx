@@ -1,16 +1,22 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 import { Box, Button, Link, InputText } from "../../components";
-import { useMutation } from "@apollo/client";
 import { SIGNIN_USER } from "../../graphql/mutation";
 import { userSession } from "../../helpers/auth";
 
-export const Login = () => {
+type LoginProps = {
+  refetch: () => void;
+};
+
+export const Login = ({ refetch }: LoginProps) => {
   const [formValues, setFormValues] = useState({
     username: "",
     password: "",
   });
-  const [login, { data, loading, error }] = useMutation(SIGNIN_USER);
+  const [login, { data, loading, error, client }] = useMutation(SIGNIN_USER);
+  const history = useHistory();
 
   const handleChange = (value: string, name: string) => {
     setFormValues({ ...formValues, [name]: value });
@@ -29,9 +35,11 @@ export const Login = () => {
   useEffect(() => {
     if (!data || !data.login) return;
     // TODO: Redirect user
-    console.log(data.login.token);
+    console.log("new token set ", data.login.token);
     userSession.saveUser(data.login.token);
-  }, [data]);
+    refetch();
+    history.replace("/");
+  }, [data, client, history, refetch]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
