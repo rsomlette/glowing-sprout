@@ -1,9 +1,9 @@
 name: VERIFY
 
 on:
-  push:
-    branches: [master, develop]
   pull_request:
+    branches: [master, develop]
+  push:
     branches: [master, develop]
 
 jobs:
@@ -33,40 +33,34 @@ jobs:
       - run: npm run test -- --coverage
         env:
           CI: true
-      - name: Upload Test Coverage
-      - uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage
-          path: coverage
-      - name: Upload Test Coverage
-        if: github.event_name == 'push'
-      - uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage
-          path: coverage
-      - name: Build Project
-        if: github.event_name == 'push'
-        run: npm run build
-      - name: Upload Build Folder
-      - if: github.event_name == 'push'
-        uses: actions/upload-artifact@v1
-        with:
-          name: build
-          path: build
-      - name: Zip code coverage
+      # - name: Upload Test Coverage
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: code-coverage
+      #     path: coverage
+      # - name: Build Project
+      #   if: github.event_name == 'push'
+      # - run: npm run build
+      # - name: Upload Build Folder
+      # - if: github.event_name == 'push'
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: build
+      #     path: build
+      # - name: Zip code coverage
       #  if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       # run: |
       #   zip -r build.zip ./build
       #   zip -r coverage.zip ./coverage
-      - name: Create a Release
+      # - name: Create a Release
       #  if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       # run: npm run release
       # env:
       # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Deploy to Staging
+      # - name: Deploy to Staging
       # if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
       # run:
-      - name: Deploy to Production
+      # - name: Deploy to Production
       # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       # run:
       # - name: Open Issue
