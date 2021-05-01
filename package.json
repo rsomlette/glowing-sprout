@@ -17,6 +17,7 @@
     "@types/styled-system": "^5.1.10",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^6.0.0",
+    "prettier": "^2.2.1",
     "semantic-release": "^17.4.2"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format:check": "prettier --check \"**/*.{ts,tsx,json,css,yml}\"",
+    "format:write": "prettier --verify \"**/*.{ts,tsx,json,css,yml}\"",
     "release": "semantic-release",
     "prepare": "husky install"
   },

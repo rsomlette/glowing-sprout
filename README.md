@@ -1,4 +1,4 @@
-![](http://github.com/rsomlette/glowing-sprout-web/workflows/VERIFY/badge.svg?branch=develop&event=push)
+![](http://github.com/rsomlette/glowing-sprout-web/actions/workflows/verify.yml/badge.svg?branch=develop&event=push)
 
 # GRAM Recipes
 
