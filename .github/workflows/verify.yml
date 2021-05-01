@@ -10,11 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules
@@ -24,10 +19,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Run tests ${{ matrix.node-version }}
+      - name: Run tests 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "14.x"
       - run: npm ci
       - run: npm run format:check -- --coverage
       - run: npm run test -- --coverage
