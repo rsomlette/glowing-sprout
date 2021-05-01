@@ -1,7 +1,4 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Tests CI
+name: VERIFY
 
 on:
   push:
@@ -20,6 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
@@ -28,7 +26,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Use Node.js to run tests ${{ matrix.node-version }}
+      - name: Run tests ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
@@ -44,13 +42,20 @@ jobs:
           name: code-coverage
           path: coverage
 
+      - name: Upload Test Coverage
+        if: github.event_name == 'push'
+      - uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: coverage
+
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
 
-      - name: Upload Test Coverage
-        if: github.event_name == 'push'
-      - uses: actions/upload-artifact@v2
+      - name: Upload Build Folder
+      - if: github.event_name == 'push'
+        uses: actions/upload-artifact@v1
         with:
           name: build
           path: build
@@ -74,3 +79,6 @@ jobs:
       - name: Deploy to Production
       # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       # run:
+      # - name: Open Issue
+      # if: failure() && github.event_name == 'push'
+      # run: |
