@@ -1,16 +1,25 @@
-FROM node:lts-alpine AS builder
+### NODE MODULES INSTALLER IMAGE ###
+FROM node:lts-alpine as node-modules
 
 WORKDIR /usr/locale/www
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json tsconfig.json ./
 
 RUN npm install --verbose --production
 
-ENV PATH="./node_modules/.bin:$PATH"
 
-COPY . .
+### NODE APPLICATION BUILD ###
+
+FROM node-modules as builder
+
+RUN npm install --verbose
+
+COPY public ./public
+COPY src ./src
 
 RUN npm run build
+
+### NODE APPLICATION RUNNER ###
 
 FROM nginx:1.19.10-alpine
 RUN apk --no-cache add curl
