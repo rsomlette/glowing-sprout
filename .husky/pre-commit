@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-CI=TRUE npm test
+CI=TRUE npm test && npm run format:check
 
