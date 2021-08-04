@@ -41,7 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format:check": "prettier --check \"**/*.{ts,tsx,json,css,yml}\"",
-    "format:write": "prettier --verify \"**/*.{ts,tsx,json,css,yml}\"",
+    "format:write": "prettier --write \"**/*.{ts,tsx,json,css,yml}\"",
     "release": "semantic-release",
     "prepare": "husky install"
   },
